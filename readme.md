@@ -1,5 +1,7 @@
 # hafas-record-delays
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/derhuerst/hafas-record-delays.svg)](https://greenkeeper.io/)
+
 **Record delays from [`hafas-monitor-departures`](https://github.com/derhuerst/hafas-monitor-departures) into a [LevelDB](http://leveldb.org).**
 
 [![npm version](https://img.shields.io/npm/v/hafas-record-delays.svg)](https://www.npmjs.com/package/hafas-record-delays)
