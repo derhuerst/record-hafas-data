@@ -1,9 +1,9 @@
 'use strict'
 
 const {EventEmitter} = require('events')
-const level = require('level')
+const _level = require('level')
 
-const record = (dbPath, monitor) => {
+const record = (dbPath, monitor, level = _level) => {
 	const out = new EventEmitter()
 	out.stop = () => {}
 

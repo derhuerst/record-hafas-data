@@ -1,6 +1,6 @@
 # hafas-record-delays
 
-**Record delays from [hafas-monitor-departures](https://github.com/derhuerst/hafas-monitor-departures) into a [LevelDB](http://leveldb.org).**
+**Record delays from [`hafas-monitor-departures`](https://github.com/derhuerst/hafas-monitor-departures) into a [LevelDB](http://leveldb.org).**
 
 [![npm version](https://img.shields.io/npm/v/hafas-record-delays.svg)](https://www.npmjs.com/package/hafas-record-delays)
 [![build status](https://api.travis-ci.org/derhuerst/hafas-record-delays.svg?branch=master)](https://travis-ci.org/derhuerst/hafas-record-delays)
@@ -19,8 +19,16 @@ npm install hafas-record-delays
 ## Usage
 
 ```js
-todo
+const recordDelays = require('hafas-record-delays')
+
+const monitor = … // create hafas-monitor-departures stream somehow
+
+const recorder = recordDelays('path/to/level-db.ldb', monitor)
+recorder.on('error', console.error)
+recorder.on('stats', console.log)
 ```
+
+The `stats` event comes from [`hafas-monitor-departures`](https://github.com/derhuerst/hafas-monitor-departures).
 
 
 ## Contributing
