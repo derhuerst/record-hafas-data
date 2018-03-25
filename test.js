@@ -75,13 +75,7 @@ test('works', (t) => {
 		for (let op of ops) {
 			t.ok(op)
 			t.ok(op.type, 'put')
-			t.ok(op.value, 'string')
-			try {
-				const val = JSON.parse(op.value)
-				t.ok(val) // todo
-			} catch (err) {
-				t.ifError(err)
-			}
+			t.ok(op.value)
 		}
 		t.end()
 	}
