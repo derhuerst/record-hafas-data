@@ -21,7 +21,7 @@ const record = (dbPath, monitor, level = _level) => {
 			batch.push({
 				type: 'put',
 				key: [dep.line.id, dep.station.id, t].join('-'),
-				value: JSON.stringify(dep)
+				value: dep
 			})
 
 			if (batch.length === 10) {
