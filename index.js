@@ -2,9 +2,8 @@
 
 const {EventEmitter} = require('events')
 const level = require('level')
-const monitor = require('hafas-monitor-departures')
 
-const record = (hafas, dbPath, stations, interval) => {
+const record = (dbPath, monitor) => {
 	const out = new EventEmitter()
 	out.stop = () => {}
 
@@ -14,11 +13,10 @@ const record = (hafas, dbPath, stations, interval) => {
 			return
 		}
 
-		const deps = monitor(hafas, stations, interval)
-		deps.on('error', err => out.emit('error'))
+		monitor.on('error', err => out.emit('error'))
 
 		let batch = []
-		deps.on('data', (dep) => {
+		monitor.on('data', (dep) => {
 			const t = Math.round(new Date(dep.when) / 1000)
 			batch.push({
 				type: 'put',
@@ -35,9 +33,9 @@ const record = (hafas, dbPath, stations, interval) => {
 		})
 
 		out.stop = () => {
-			deps.stop()
+			monitor.stop()
 		}
-		deps.on('stats', (stats) => {
+		monitor.on('stats', (stats) => {
 			out.emit('stats', stats)
 		})
 	})

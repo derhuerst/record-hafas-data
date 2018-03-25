@@ -1,6 +1,6 @@
 # hafas-record-delays
 
-**Pass in a HAFAS client, record delayed departures at stations into a [LevelDB](http://leveldb.org).**
+**Record delays from [hafas-monitor-departures](https://github.com/derhuerst/hafas-monitor-departures) into a [LevelDB](http://leveldb.org).**
 
 [![npm version](https://img.shields.io/npm/v/hafas-record-delays.svg)](https://www.npmjs.com/package/hafas-record-delays)
 [![build status](https://api.travis-ci.org/derhuerst/hafas-record-delays.svg?branch=master)](https://travis-ci.org/derhuerst/hafas-record-delays)

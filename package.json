@@ -1,6 +1,6 @@
 {
 	"name": "hafas-record-delays",
-	"description": "Pass in a HAFAS client, record delayed departures at stations into a LevelDB.",
+	"description": "Record delays from hafas-monitor-departures into a LevelDB.",
 	"version": "0.1.0",
 	"main": "index.js",
 	"files": [
@@ -24,12 +24,14 @@
 		"node": ">=6"
 	},
 	"dependencies": {
-		"hafas-monitor-departures": "^1.0.0",
 		"level": "^3.0.0"
 	},
 	"devDependencies": {
 		"tap-min": "^1.2.2",
 		"tape": "^4.8.0"
+	},
+	"peerDependencies": {
+		"hafas-monitor-departures": "^1.0.0"
 	},
 	"scripts": {
 		"test": "env NODE_ENV=dev node test.js | tap-min",
