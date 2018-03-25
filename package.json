@@ -24,6 +24,8 @@
 		"node": ">=6"
 	},
 	"dependencies": {
+		"hafas-monitor-departures": "^1.0.0",
+		"level": "^3.0.0"
 	},
 	"devDependencies": {
 		"tap-min": "^1.2.2",
