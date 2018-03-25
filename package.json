@@ -1,0 +1,36 @@
+{
+	"name": "hafas-record-delays",
+	"description": "Pass in a HAFAS client, record delayed departures at stations into a LevelDB.",
+	"version": "0.1.0",
+	"main": "index.js",
+	"files": [
+		"index.js"
+	],
+	"keywords": [
+		"hafas",
+		"public",
+		"transport",
+		"transit",
+		"departures",
+		"delays",
+		"leveldb"
+	],
+	"author": "Jannis R <mail@jannisr.de>",
+	"homepage": "https://github.com/derhuerst/hafas-record-delays",
+	"repository": "derhuerst/hafas-record-delays",
+	"bugs": "https://github.com/derhuerst/hafas-record-delays/issues",
+	"license": "ISC",
+	"engines": {
+		"node": ">=6"
+	},
+	"dependencies": {
+	},
+	"devDependencies": {
+		"tap-min": "^1.2.2",
+		"tape": "^4.8.0"
+	},
+	"scripts": {
+		"test": "env NODE_ENV=dev node test.js | tap-min",
+		"prepublishOnly": "npm test"
+	}
+}
