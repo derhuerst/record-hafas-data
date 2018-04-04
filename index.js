@@ -13,7 +13,7 @@ const record = (dbPath, monitor, level = _level) => {
 			return
 		}
 
-		monitor.on('error', err => out.emit('error'))
+		monitor.on('error', err => out.emit('error', err))
 
 		let batch = []
 		monitor.on('data', (dep) => {
