@@ -31,7 +31,6 @@ const createMockMonitor = (onStop) => {
 
 	const writeDep = () => {
 		monitor.push({
-			journeyId: 'journey-123',
 			station: {type: 'station', id: '1234567'},
 			when: new Date(Date.now() + 5 * 1000).toISOString(),
 			delay: 2,
@@ -76,7 +75,6 @@ test('works', (t) => {
 		for (let op of ops) {
 			t.ok(op)
 			t.ok(op.type, 'put')
-			t.equal(op.key, '1234567:journey-123')
 			t.ok(op.value)
 		}
 		t.end()
