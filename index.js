@@ -17,10 +17,22 @@ const record = (dbPath, monitor, level = _level) => {
 
 		let batch = []
 		monitor.on('data', (dep) => {
+			if (!dep.station || !dep.station.id) {
+				out.emit('error', new Error('invalid dep: missing dep.station.id'))
+				return
+			}
+			if (!dep.journeyId) {
+				out.emit('error', new Error('invalid dep: missing dep.journeyId'))
+				return
+			}
+
 			const t = Math.round(new Date(dep.when) / 1000)
 			batch.push({
 				type: 'put',
-				key: [dep.line.id, dep.station.id, t].join('-'),
+				key: [
+					dep.station.id,
+					dep.journeyId
+				].join(':'),
 				value: dep
 			})
 
