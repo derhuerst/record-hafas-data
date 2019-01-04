@@ -27,13 +27,14 @@
 		"level": "^3.0.0"
 	},
 	"devDependencies": {
+		"alphanumeric-id": "^1.0.1",
 		"levelup": "^2.0.2",
 		"memdown": "^2.0.0",
 		"tap-min": "^1.2.2",
 		"tape": "^4.8.0"
 	},
 	"peerDependencies": {
-		"hafas-monitor-departures": "^1.0.0"
+		"hafas-monitor-departures": "^2.0.0"
 	},
 	"scripts": {
 		"test": "env NODE_ENV=dev node test.js | tap-min",

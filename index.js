@@ -20,7 +20,7 @@ const record = (dbPath, monitor, level = _level) => {
 			const t = Math.round(new Date(dep.when) / 1000)
 			batch.push({
 				type: 'put',
-				key: [dep.line.id, dep.station.id, t].join('-'),
+				key: [dep.line.id, dep.stop.id, t].join('-'),
 				value: dep
 			})
 

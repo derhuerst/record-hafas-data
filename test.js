@@ -4,6 +4,7 @@ const levelup = require('levelup')
 const memdown = require('memdown')
 const {Readable} = require('stream')
 const test = require('tape')
+const alphanumericId = require('alphanumeric-id')
 
 const record = require('.')
 
@@ -31,9 +32,10 @@ const createMockMonitor = (onStop) => {
 
 	const writeDep = () => {
 		monitor.push({
-			station: {type: 'station', id: '1234567'},
-			when: new Date(Date.now() + 5 * 1000).toISOString(),
-			delay: 2,
+			tripId: alphanumericId(22),
+			stop: {type: 'station', id: '1234567'},
+			when: new Date(Date.now() + 40 * 1000).toISOString(),
+			delay: 30,
 			direction: 'one-direction', // haha
 			line: {
 				type: 'line',
@@ -41,8 +43,7 @@ const createMockMonitor = (onStop) => {
 				name: '123 Line',
 				public: true,
 				mode: 'train'
-			},
-			trip: Math.round(Math.random() * 30000) + ''
+			}
 		})
 	}
 
