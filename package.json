@@ -24,7 +24,8 @@
 		"node": ">=6"
 	},
 	"dependencies": {
-		"level": "^4.0.0"
+		"level": "^4.0.0",
+		"semver": "^5.6.0"
 	},
 	"devDependencies": {
 		"alphanumeric-id": "^1.0.1",

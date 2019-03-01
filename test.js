@@ -8,6 +8,9 @@ const alphanumericId = require('alphanumeric-id')
 
 const record = require('.')
 
+const VERSION_KEY = 'hafas-delays-version'
+const VERSION = require('./package.json').version
+
 const createLevelWithSpies = (onCreate, onBatch) => {
 	return function _createDbWithSpies (path, opt, cb) {
 		onCreate.apply({}, arguments)
@@ -20,7 +23,11 @@ const createLevelWithSpies = (onCreate, onBatch) => {
 			onBatch(ops)
 			return origBatch.apply(db, arguments)
 		}
-		return db
+
+		db.put(VERSION_KEY, VERSION, (err) => {
+			if (err) cb(err)
+			else cb(null, db)
+		})
 	}
 }
 
@@ -58,6 +65,29 @@ const createMockMonitor = (onStop) => {
 
 	return monitor
 }
+
+test('rejects old versions', (t) => {
+	const monitor = createMockMonitor(() => {})
+	const db = levelup(memdown('/foo'))
+	const level = (path, opt, cb) => {
+		setImmediate(cb, null, db)
+	}
+
+	db.put('hafas-delays-version', '0.0.0', (err) => {
+		if (err) return t.ifError(err)
+
+		const recorder = record('/foo', monitor, level)
+		recorder.once('error', (err) => {
+			t.ok(err)
+			t.equal(err.dbVersion, '0.0.0')
+			t.equal(typeof err.expectedVersion, 'string')
+			t.ok(err.expectedVersion)
+
+			monitor.stop()
+			t.end()
+		})
+	})
+})
 
 test('works', (t) => {
 	const onStop = () => t.pass('stop called')
