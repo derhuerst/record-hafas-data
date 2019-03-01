@@ -96,11 +96,6 @@ test('works', (t) => {
 	const onCreate = path => t.equal(path, '/foo')
 	let stopped = false
 	const onBatch = (ops) => {
-		if (!stopped) {
-			recorder.stop()
-			stopped = true
-		}
-
 		t.ok(Array.isArray(ops))
 		t.ok(ops.length > 0)
 		for (let op of ops) {
@@ -108,7 +103,12 @@ test('works', (t) => {
 			t.ok(op.type, 'put')
 			t.ok(op.value)
 		}
-		t.end()
+
+		if (!stopped) {
+			stopped = true
+			recorder.stop()
+			t.end()
+		}
 	}
 
 	const recorder = record('/foo', monitor, createLevelWithSpies(onCreate, onBatch))
