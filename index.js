@@ -15,11 +15,11 @@ const record = (dbPath, monitor, level = _level) => {
 
 		let batch = []
 		monitor.on('data', (dep) => {
-			const t = Math.round(new Date(dep.when) / 1000)
+			const tQuery = dep[monitor.tQuery]
 			batch.push({
 				type: 'put',
-				key: [NAMESPACE, dep.line.id, dep.stop.id, t].join('-'),
-				value: dep
+				key: [NAMESPACE, dep.line.id, dep.stop.id, tQuery].join('-'),
+				value: [tQuery, dep]
 			})
 
 			if (batch.length === 10) {
