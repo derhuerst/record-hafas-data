@@ -15,8 +15,8 @@ const isCompatibleVersion = dbVersion => {
 // todo: move to an npm lib
 const ensureCorrectVersion = (db, cb) => {
 	db.get(VERSION_KEY, (err, dbVersion) => {
-		if (err) console.error('err props', Object.entries(err)) // todo: remove
 		if (err && !err.notFound) return cb(err)
+		if (err && err.notFound) return db.put(VERSION_KEY, VERSION, cb)
 		dbVersion = dbVersion.toString('utf8')
 
 		// hafas-record-delays <= 1.0.1 didn't put a version
