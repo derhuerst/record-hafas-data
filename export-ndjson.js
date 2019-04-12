@@ -20,7 +20,11 @@ const exportNdjson = (dbPath, out, level = _level) => {
 				gt: NAMESPACE + '-',
 				lt: NAMESPACE + '-' + String.fromCharCode(0xFFFF)
 			}),
-			through.obj((val, _, cb) => cb(null, val[1])),
+			// todo: put `hafas-client` data format version
+			through.obj(([tQuery, data], _, cb) => {
+				data._tQuery = tQuery
+				cb(null, data)
+			}),
 			stringify(),
 			out,
 			onError
