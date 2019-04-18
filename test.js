@@ -7,6 +7,7 @@ const test = require('tape')
 const alphanumericId = require('alphanumeric-id')
 
 const record = require('.')
+const createLastDepPerStopoverStream = require('./last-dep-per-stopover')
 
 const createLevelWithSpies = (onCreate, onBatch) => {
 	return function _createDbWithSpies (path, opt, cb) {
@@ -86,4 +87,57 @@ test('works', (t) => {
 	const recorder = record('/foo', monitor, createLevelWithSpies(onCreate, onBatch))
 	recorder.on('error', t.ifError)
 	// todo: check if emits events
+})
+
+test('last-dep-per-stopover works', (t) => {
+	const MINUTE = 60
+	const HOUR = 60 * MINUTE
+	const DAY = 24 * HOUR
+
+	const s = createLastDepPerStopoverStream(10 * HOUR)
+	const writeDep = (tQuery, tripId, when, delay) => {
+		s.write({
+			tripId: tripId,
+			stop: {type: 'stop', id: 'one'},
+			when,
+			delay,
+			_tQuery: tQuery
+		})
+	}
+
+	const onFirst = (dep) => {
+		t.deepEqual(dep, {
+			tripId: 'a',
+			stop: {type: 'stop', id: 'one'},
+			when: DAY,
+			delay: 0,
+			_tQuery: 4 * MINUTE
+		})
+	}
+	const onSecond = (dep) => {
+		t.deepEqual(dep, {
+			tripId: 'b',
+			stop: {type: 'stop', id: 'one'},
+			when: DAY + 30,
+			delay: 30,
+			_tQuery: 3 * MINUTE
+		})
+	}
+
+	writeDep(1 * MINUTE, 'a', DAY + 30, 30)
+	writeDep(1 * MINUTE, 'b', DAY + 10, 10)
+	writeDep(2 * MINUTE, 'b', DAY + 20, 20)
+	writeDep(3 * MINUTE, 'b', DAY + 30, 30) // b went delayed
+	writeDep(4 * MINUTE, 'a', DAY, 0) // a is on time again
+	s.end()
+
+	t.plan(2 + 1)
+	let chunk = 0
+	s.on('data', (dep) => {
+		chunk++
+		if (chunk === 1) onFirst(dep)
+		else if (chunk === 2) onSecond(dep)
+		else t.fail('more than 2 departures emitted')
+	})
+	s.on('end', () => t.pass('stream ended'))
 })
