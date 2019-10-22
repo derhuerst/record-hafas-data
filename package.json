@@ -25,10 +25,10 @@
 	"bugs": "https://github.com/derhuerst/hafas-record-delays/issues",
 	"license": "ISC",
 	"engines": {
-		"node": ">=6"
+		"node": ">=10"
 	},
 	"dependencies": {
-		"level": "^4.0.0",
+		"level": "^6.0.0",
 		"ndjson": "^1.5.0",
 		"pump": "^3.0.0",
 		"sqlstring": "^2.3.1",
@@ -37,12 +37,9 @@
 	"devDependencies": {
 		"alphanumeric-id": "^1.0.1",
 		"levelup": "^4.0.0",
-		"memdown": "^3.0.0",
-		"tap-min": "^1.2.2",
+		"memdown": "^5.1.0",
+		"tap-min": "^2.0.0",
 		"tape": "^4.8.0"
-	},
-	"peerDependencies": {
-		"hafas-monitor-departures": "^2.2.0"
 	},
 	"scripts": {
 		"test": "env NODE_ENV=dev node test.js | tap-min",
