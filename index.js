@@ -6,6 +6,7 @@ const NAMESPACE = require('./lib/namespace')
 
 const record = (dbPath, monitor, level = _level) => {
 	const out = new EventEmitter()
+	// todo: fix race condition (calling code vs level)
 	out.stop = () => {}
 
 	level(dbPath, {valueEncoding: 'json'}, (err, db) => {
