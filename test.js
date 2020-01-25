@@ -2,7 +2,7 @@
 
 const levelup = require('levelup')
 const memdown = require('memdown')
-const {Readable} = require('stream')
+const {EventEmitter} = require('events')
 const test = require('tape')
 const alphanumericId = require('alphanumeric-id')
 
@@ -27,16 +27,14 @@ const createLevelWithSpies = (onCreate, onBatch) => {
 }
 
 const createMockMonitor = (onStop) => {
-	const monitor = new Readable({
-		objectMode: true,
-		read: () => {}
-	})
+	const monitor = new EventEmitter()
 
 	const writeDep = () => {
-		monitor.push({
+		monitor.emit('departure', {
 			tripId: alphanumericId(22),
 			stop: {type: 'station', id: '1234567'},
 			when: new Date(Date.now() + 40 * 1000).toISOString(),
+			plannedWhen: new Date(Date.now() + 70 * 1000).toISOString(),
 			delay: 30,
 			direction: 'one-direction', // haha
 			line: {
@@ -49,14 +47,18 @@ const createMockMonitor = (onStop) => {
 		})
 	}
 
-	let interval = setInterval(writeDep, 1 * 1000)
-	monitor.stop = () => {
-		if (interval !== null) {
-			clearInterval(interval)
-			interval = null
-		}
+	let timer = null
+	monitor.on('newListener', (eventName) => {
+		if (timer !== null) return;
+		timer = setInterval(writeDep, 1 * 1000)
+		setImmediate(writeDep)
+	})
+	monitor.on('removeListener', (eventName) => {
+		if (timer === null) return;
+		clearInterval(timer)
+		timer = null
 		onStop()
-	}
+	})
 
 	return monitor
 }
@@ -78,8 +80,8 @@ test('works', (t) => {
 		}
 
 		if (!stopped) {
-			stopped = true
 			recorder.stop()
+			stopped = true
 			t.end()
 		}
 	}

@@ -11,10 +11,8 @@ const record = (dbPath, monitor, level = _level) => {
 	level(dbPath, {valueEncoding: 'json'}, (err, db) => {
 		if (err) return out.emit('error', err)
 
-		monitor.on('error', err => out.emit('error', err))
-
 		let batch = []
-		monitor.on('data', (dep) => {
+		const onDeparture = (dep) => {
 			const tQuery = dep[monitor.tQuery]
 			batch.push({
 				type: 'put',
@@ -22,20 +20,25 @@ const record = (dbPath, monitor, level = _level) => {
 				value: [tQuery, dep]
 			})
 
-			if (batch.length === 10) {
+			if (batch.length >= 10) {
 				db.batch(batch, (err) => {
 					if (err) out.emit('error', err)
 				})
 				batch = []
 			}
-		})
-
-		out.stop = () => {
-			monitor.stop()
 		}
-		monitor.on('stats', (stats) => {
+
+		const onStats = (stats) => {
 			out.emit('stats', stats)
-		})
+		}
+
+		monitor.on('error', err => out.emit('error', err))
+		monitor.on('departure', onDeparture)
+		monitor.on('stats', onStats)
+		out.stop = () => {
+			monitor.removeListener('departure', onDeparture)
+			monitor.removeListener('stats', onStats)
+		}
 	})
 
 	return out
