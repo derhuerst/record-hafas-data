@@ -18,8 +18,16 @@ npm install record-hafas-data
 
 ## Usage
 
-```shell
-# todo
+```
+Usage:
+	monitor-hafas … | record-hafas-data <path-to-leveldb>
+Supported monitor-hafas-cli events:
+	departure, stopover, trip
+Examples:
+	monitor-hafas vbb-hafas departure stations \
+		900000100001,900000100003 | record-hafas-data vbb-deps.ldb
+	monitor-hafas oebb-hafas stopover bbox \
+		52.6 13.3 52.3 13.6 | record-hafas-data oebb-stopovers.ldb
 ```
 
 
