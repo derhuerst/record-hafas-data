@@ -1,7 +1,7 @@
 {
 	"name": "hafas-record-delays",
 	"description": "Record delays from hafas-monitor-departures into a LevelDB.",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"main": "index.js",
 	"files": [
 		"index.js",
@@ -29,6 +29,7 @@
 		"node": ">=10"
 	},
 	"dependencies": {
+		"find-streaks": "^1.0.1",
 		"level": "^6.0.0",
 		"ndjson": "^1.5.0",
 		"pump": "^3.0.0",
