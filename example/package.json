@@ -4,5 +4,7 @@
 	"description": "record-hafas-data example",
 	"version": "0.0.0",
 	"dependencies": {
+		"monitor-hafas-cli": "^2.0.0",
+		"vbb-hafas": "^7.0.1"
 	}
 }

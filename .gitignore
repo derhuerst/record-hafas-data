@@ -7,4 +7,4 @@ pnpm-debug.log
 
 /package-lock.json
 
-/example.ldb
+/example/vbb-deps.ldb
