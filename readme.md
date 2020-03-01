@@ -1,10 +1,10 @@
-# hafas-record-delays
+# record-hafas-data
 
-**Record delays from [`hafas-monitor-departures@4`](https://github.com/derhuerst/hafas-monitor-departures) into a [LevelDB](http://leveldb.org).**
+**CLI tool to record data from [`monitor-hafas-cli@2`](https://github.com/derhuerst/monitor-hafas-cli) into a [LevelDB](http://leveldb.org).**
 
-[![npm version](https://img.shields.io/npm/v/hafas-record-delays.svg)](https://www.npmjs.com/package/hafas-record-delays)
-[![build status](https://api.travis-ci.org/derhuerst/hafas-record-delays.svg?branch=master)](https://travis-ci.org/derhuerst/hafas-record-delays)
-![ISC-licensed](https://img.shields.io/github/license/derhuerst/hafas-record-delays.svg)
+[![npm version](https://img.shields.io/npm/v/record-hafas-data.svg)](https://www.npmjs.com/package/record-hafas-data)
+[![build status](https://api.travis-ci.org/derhuerst/record-hafas-data.svg?branch=master)](https://travis-ci.org/derhuerst/record-hafas-data)
+![ISC-licensed](https://img.shields.io/github/license/derhuerst/record-hafas-data.svg)
 [![chat with me on Gitter](https://img.shields.io/badge/chat%20with%20me-on%20gitter-512e92.svg)](https://gitter.im/derhuerst)
 [![support me on Patreon](https://img.shields.io/badge/support%20me-on%20patreon-fa7664.svg)](https://patreon.com/derhuerst)
 
@@ -12,25 +12,22 @@
 ## Installing
 
 ```shell
-npm install hafas-record-delays
+npm install record-hafas-data
 ```
 
 
 ## Usage
 
-```js
-const recordDelays = require('hafas-record-delays')
-
-const monitor = … // create hafas-monitor-departures stream somehow
-
-const recorder = recordDelays('path/to/level-db.ldb', monitor)
-recorder.on('error', console.error)
-recorder.on('stats', console.log)
+```shell
+# todo
 ```
 
-The `stats` event comes from [`hafas-monitor-departures`](https://github.com/derhuerst/hafas-monitor-departures).
+
+## Related
+
+- [`monitor-hafas-cli`](https://github.com/derhuerst/monitor-hafas-cli) – Monitor any HAFAS endpoint from the command line.
 
 
 ## Contributing
 
-If you have a question or have difficulties using `hafas-record-delays`, please double-check your code and setup first. If you think you have found a bug or want to propose a feature, refer to [the issues page](https://github.com/derhuerst/hafas-record-delays/issues).
+If you have a question or have difficulties using `record-hafas-data`, please double-check your code and setup first. If you think you have found a bug or want to propose a feature, refer to [the issues page](https://github.com/derhuerst/record-hafas-data/issues).

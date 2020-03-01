@@ -1,0 +1,8 @@
+{
+	"private": true,
+	"name": "record-hafas-data-example",
+	"description": "record-hafas-data example",
+	"version": "0.0.0",
+	"dependencies": {
+	}
+}

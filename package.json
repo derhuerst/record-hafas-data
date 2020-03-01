@@ -1,29 +1,31 @@
 {
-	"name": "hafas-record-delays",
-	"description": "Record delays from hafas-monitor-departures into a LevelDB.",
-	"version": "4.0.1",
+	"name": "record-hafas-data",
+	"description": "Record data from monitor-hafas-cli into a LevelDB.",
+	"version": "2.0.0",
 	"main": "index.js",
+	"bin": {
+		"record-hafas-data": "./record.js"
+	},
 	"files": [
 		"index.js",
+		"record.js",
 		"export-sql.js",
-		"export-ndjson.js",
 		"last-dep-per-stopover.js",
 		"lib",
 		"example.js"
 	],
 	"keywords": [
 		"hafas",
-		"public",
-		"transport",
+		"public transport",
 		"transit",
-		"departures",
-		"delays",
+		"record",
+		"store",
 		"leveldb"
 	],
 	"author": "Jannis R <mail@jannisr.de>",
-	"homepage": "https://github.com/derhuerst/hafas-record-delays",
-	"repository": "derhuerst/hafas-record-delays",
-	"bugs": "https://github.com/derhuerst/hafas-record-delays/issues",
+	"homepage": "https://github.com/derhuerst/record-hafas-data",
+	"repository": "derhuerst/record-hafas-data",
+	"bugs": "https://github.com/derhuerst/record-hafas-data/issues",
 	"license": "ISC",
 	"engines": {
 		"node": ">=10"
@@ -31,15 +33,13 @@
 	"dependencies": {
 		"find-streaks": "^1.0.1",
 		"level": "^6.0.0",
+		"mri": "^1.1.4",
 		"ndjson": "^1.5.0",
 		"pump": "^3.0.0",
 		"sqlstring": "^2.3.1",
 		"through2": "^3.0.1"
 	},
 	"devDependencies": {
-		"alphanumeric-id": "^1.0.1",
-		"db-hafas": "^5.0.1",
-		"hafas-monitor-departures": "^4.0.0",
 		"levelup": "^4.0.0",
 		"memdown": "^5.1.0",
 		"tap-min": "^2.0.0",
