@@ -30,6 +30,13 @@ Examples:
 		52.6 13.3 52.3 13.6 | record-hafas-data oebb-stopovers.ldb
 ```
 
+```
+Usage:
+	export-hafas-data-as-sql <path-to-leveldb> [event types]
+Examples:
+	export-hafas-data-as-sql db.ldb departure,stopover >export.sql
+```
+
 
 ## Related
 

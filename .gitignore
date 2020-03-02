@@ -8,3 +8,4 @@ pnpm-debug.log
 /package-lock.json
 
 /example/vbb-deps.ldb
+/example/vbb-deps.sqlite

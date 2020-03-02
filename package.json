@@ -4,7 +4,8 @@
 	"version": "2.0.0",
 	"main": "index.js",
 	"bin": {
-		"record-hafas-data": "./record.js"
+		"record-hafas-data": "./record.js",
+		"export-hafas-data-as-sql": "./export-sql.js"
 	},
 	"files": [
 		"index.js",
