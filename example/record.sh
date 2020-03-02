@@ -10,4 +10,4 @@ cd $(dirname $0)
 # 	bbox 52.6 13.3 52.3 13.6
 
 rm -rf vbb-deps.ldb
-cat ./vbb-deps.ndjson | ../record.js vbb-deps.ldb
+cat ./vbb-deps.ndjson | ../record.js vbb-deps.ldb -e departure,stopover

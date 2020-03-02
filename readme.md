@@ -23,6 +23,8 @@ Usage:
 	monitor-hafas … | record-hafas-data <path-to-leveldb>
 Supported monitor-hafas-cli events:
 	departure, stopover, trip
+Options:
+	--event-types  -e  Event types for record. Default: all
 Examples:
 	monitor-hafas vbb-hafas departure stations \
 		900000100001,900000100003 | record-hafas-data vbb-deps.ldb

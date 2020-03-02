@@ -17,6 +17,8 @@ Usage:
 	monitor-hafas … | record-hafas-data <path-to-leveldb>
 Supported monitor-hafas-cli events:
 	departure, stopover, trip
+Options:
+	--event-types  -e  Event types for record. Default: all
 Examples:
 	monitor-hafas vbb-hafas departure stations \\
 		900000100001,900000100003 | record-hafas-data vbb-deps.ldb
@@ -44,9 +46,12 @@ const showError = (err) => {
 const pathToLeveldb = argv._[0]
 if (!pathToLeveldb) showError('Missing path to the LevelDB.')
 
+let eventTypes = argv['event-types'] || argv.e
+if (eventTypes) eventTypes = eventTypes.split(/,\s?/)
+
 pump(
 	process.stdin,
 	parse(),
-	record(pathToLeveldb),
+	record(pathToLeveldb, {eventTypes}),
 	showError
 )

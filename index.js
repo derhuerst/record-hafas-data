@@ -10,9 +10,11 @@ const record = (dbPath, opt = {}) => {
 	const {
 		level,
 		valueEncoding,
+		eventTypes,
 	} = {
 		level: _level,
 		valueEncoding: 'json',
+		eventTypes: null,
 		...opt
 	}
 
@@ -40,6 +42,9 @@ const record = (dbPath, opt = {}) => {
 			err.row = row
 			throw err
 		}
+
+		// skip unwanted event types
+		if (eventTypes && !eventTypes.includes(evType)) return;
 
 		const dbCommand = recordCommands[evType]
 		if (!dbCommand) {
@@ -81,7 +86,12 @@ const record = (dbPath, opt = {}) => {
 			cb()
 		},
 		final: (cb) => {
-			db.close(cb)
+			pDb
+			.then(
+				db => {db.close(cb)},
+				() => cb() // DB initialisation failed, silence error
+			)
+			.catch(cb) // some other error, pass on
 		}
 	})
 	pDb.catch(err => out.destroy(err))
