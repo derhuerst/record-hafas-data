@@ -2,41 +2,9 @@
 
 const _level = require('level')
 const {Writable} = require('stream')
+const {recordCommands} = require('./lib/event-types')
 const DATA_VERSION = require('./lib/data-version')
 const pkg = require('./package.json')
-
-// event type -> fn dbCommand(tQuery, data)
-const EVENT_TYPES = Object.assign(Object.create(null), {
-	departure: (tQuery, dep) => ({
-		type: 'put',
-		key: [
-			DATA_VERSION, 'dep',
-			dep.line.id, // todo: what if `dep.line` is falsy?
-			dep.stop.id, // todo: what if `dep.stop` is falsy?
-			tQuery
-		].join('-'),
-		value: [tQuery, dep]
-	}),
-	stopover: (tQuery, st) => ({
-		type: 'put',
-		key: [
-			DATA_VERSION, 'stpvr',
-			st.tripId,
-			st.stop.id, // todo: what if `st.stop` is falsy?
-			tQuery
-		].join('-'),
-		value: [tQuery, st]
-	}),
-	trip: (tQuery, trip) => ({
-		type: 'put',
-		key: [
-			DATA_VERSION, 'trip',
-			trip.id,
-			tQuery
-		].join('-'),
-		value: [tQuery, trip]
-	}),
-})
 
 const record = (dbPath, opt = {}) => {
 	const {
@@ -66,20 +34,18 @@ const record = (dbPath, opt = {}) => {
 
 		if (dataVersion !== DATA_VERSION) {
 			const err = new Error([
-				'incompatible data version:',
-				`${pkg.name} only supports ${DATA_VERSION},`,
-				`input data has ${dataVersion}`
+				`incompatible data version \`${dataVersion}\``,
+				`${pkg.name} only supports ${DATA_VERSION},`
 			].join(' '))
 			err.row = row
 			throw err
 		}
 
-		const dbCommand = EVENT_TYPES[evType]
+		const dbCommand = recordCommands[evType]
 		if (!dbCommand) {
 			const err = new Error([
-				'incompatible event type:',
-				`${pkg.name} only supports ${Object.keys(EVENT_TYPES).join('/')},`,
-				`input data has ${evType}`
+				`incompatible event type \`${evType}\``,
+				`${pkg.name} only supports ${Object.keys(recordCommands).join('/')},`
 			].join(' '))
 			err.row = row
 			throw err
@@ -123,5 +89,5 @@ const record = (dbPath, opt = {}) => {
 	return out
 }
 
-record.EVENT_TYPES = Object.keys(EVENT_TYPES)
+record.EVENT_TYPES = Object.keys(recordCommands)
 module.exports = record
