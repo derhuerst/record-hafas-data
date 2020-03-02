@@ -4,6 +4,10 @@ node_js:
   - node
   - 'lts/*'
   - '10'
+addons:
+  apt:
+    packages:
+    - sqlite3
 cache: npm
 notifications:
   email:

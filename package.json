@@ -48,7 +48,7 @@
 		"tape": "^4.8.0"
 	},
 	"scripts": {
-		"test": "env NODE_ENV=dev node test.js | tap-min",
+		"test": "./test/index.sh",
 		"prepublishOnly": "npm test"
 	}
 }

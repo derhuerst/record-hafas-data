@@ -9,3 +9,6 @@ pnpm-debug.log
 
 /example/vbb-deps.ldb
 /example/vbb-deps.sqlite
+
+/test/test.ldb
+/test/test.sqlite
