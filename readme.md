@@ -1,6 +1,6 @@
 # record-hafas-data
 
-**CLI tool to record data from [`monitor-hafas-cli@2`](https://github.com/derhuerst/monitor-hafas-cli) into a [LevelDB](http://leveldb.org).**
+**CLI tool to record data from [`monitor-hafas-cli@2`](https://github.com/derhuerst/monitor-hafas-cli) into a [LevelDB](https://github.com/google/leveldb).**
 
 [![npm version](https://img.shields.io/npm/v/record-hafas-data.svg)](https://www.npmjs.com/package/record-hafas-data)
 [![build status](https://api.travis-ci.org/derhuerst/record-hafas-data.svg?branch=master)](https://travis-ci.org/derhuerst/record-hafas-data)
